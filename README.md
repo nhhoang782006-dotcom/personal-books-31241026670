@@ -2,6 +2,9 @@
 
 Ứng dụng web tiếng Việt để quản lý danh sách sách cá nhân, theo dõi trạng thái đọc và xem thống kê theo thể loại.
 
+- **Web:** https://nhhoang782006-dotcom.github.io/personal-books-31241026670/
+- **Mã nguồn:** https://github.com/nhhoang782006-dotcom/personal-books-31241026670
+
 ## Chức năng
 
 - Thêm, sửa, xóa sách; cập nhật trạng thái Chưa đọc / Đang đọc / Đã đọc.
