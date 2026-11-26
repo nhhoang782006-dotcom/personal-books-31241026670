@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f5f3eb" />
+    <meta name="description" content="Quản lý tủ sách cá nhân, theo dõi tiến độ đọc và khám phá thói quen đọc sách." />
+    <title>Tủ Sách — Quản lý sách cá nhân</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Bỏ qua điều hướng</a>
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Tủ Sách — về đầu trang">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 32 32" fill="none"><path d="M5 7.5c4.4-1.4 8-.8 11 1.7v18c-3-2.5-6.6-3.1-11-1.7v-18Zm22 0c-4.4-1.4-8-.8-11 1.7v18c3-2.5 6.6-3.1 11-1.7v-18Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M9 12c2-.4 3.8 0 5.3 1M23 12c-2-.4-3.8 0-5.3 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </span>
+        <span class="brand-type"><strong>TỦ SÁCH</strong><small>THƯ VIỆN CỦA RIÊNG BẠN</small></span>
+      </a>
+      <div class="topbar-note"><span class="status-dot"></span> Góc đọc của bạn</div>
+    </header>
+
+    <main id="main">
+      <section class="intro" id="top" aria-labelledby="page-title">
+        <div class="intro-copy">
+          <p class="eyebrow"><span>NHẬT KÝ ĐỌC</span><span class="eyebrow-line"></span><span id="today-label">HÔM NAY</span></p>
+          <h1 id="page-title">Mỗi cuốn sách<br />mở ra <em>một thế giới.</em></h1>
+          <p class="intro-text">Gom những trang sách yêu thích vào một nơi. Theo dõi hành trình đọc và dành chỗ cho cuốn tiếp theo.</p>
+          <button class="button button-dark" id="add-book-button" type="button">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 4v12M4 10h12" /></svg>
+            Thêm sách mới
+          </button>
+        </div>
+        <div class="shelf-illustration" aria-hidden="true">
+          <div class="sun-disc"></div><div class="illustration-label">SLOW<br />READING<br /><span>CLUB</span></div>
+          <div class="book-stack"><i></i><i></i><i></i><i></i></div><div class="shelf-line"></div>
+          <span class="illustration-caption">Sưu tầm từng câu chuyện hay</span>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Thống kê tủ sách">
+        <div class="stat stat-total"><span class="stat-label">TỔNG SỐ SÁCH</span><strong id="stat-total">0</strong><span class="stat-detail">đang ở trong tủ</span></div>
+        <div class="stat"><span class="stat-label">CHƯA ĐỌC</span><strong id="stat-unread">0</strong><span class="stat-detail">đang chờ bạn</span></div>
+        <div class="stat"><span class="stat-label">ĐANG ĐỌC</span><strong id="stat-reading">0</strong><span class="stat-detail">trang sách đang mở</span></div>
+        <div class="stat stat-progress"><span class="stat-label">ĐÃ ĐỌC</span><strong><span id="stat-read">0</span><small id="stat-read-rate">0%</small></strong><span class="stat-detail">đã khép lại hành trình</span></div>
+      </section>
+
+      <section class="library" aria-labelledby="library-title">
+        <div class="library-heading">
+          <div><p class="eyebrow eyebrow-green">BỘ SƯU TẬP</p><h2 id="library-title">Kệ sách <span id="visible-count">(0)</span></h2></div>
+          <label class="search-box">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.8" cy="8.8" r="5.8"/><path d="m13.2 13.2 4 4"/></svg>
+            <span class="sr-only">Tìm theo tên sách hoặc tác giả</span>
+            <input id="search-input" type="search" placeholder="Tìm sách, tác giả..." autocomplete="off" />
+            <kbd>/</kbd>
+          </label>
+        </div>
+        <div class="filter-row" role="group" aria-label="Lọc sách theo trạng thái">
+          <button class="filter-button is-active" type="button" data-filter="all" aria-pressed="true">Tất cả <span id="count-all">0</span></button>
+          <button class="filter-button" type="button" data-filter="unread" aria-pressed="false">Chưa đọc <span id="count-unread">0</span></button>
+          <button class="filter-button" type="button" data-filter="reading" aria-pressed="false">Đang đọc <span id="count-reading">0</span></button>
+          <button class="filter-button" type="button" data-filter="read" aria-pressed="false">Đã đọc <span id="count-read">0</span></button>
+          <label class="sort-control">Sắp xếp
+            <select id="sort-select" aria-label="Sắp xếp sách">
+              <option value="recent">Mới cập nhật</option><option value="title">Tên sách A–Z</option><option value="author">Tác giả A–Z</option>
+            </select>
+          </label>
+        </div>
+        <div id="book-list" class="book-grid" aria-live="polite"></div>
+      </section>
+
+      <section class="genre-section" aria-labelledby="genre-title">
+        <div class="genre-title-row"><div><p class="eyebrow eyebrow-green">NHÌN LẠI THÓI QUEN</p><h2 id="genre-title">Bạn đọc gì gần đây?</h2></div><span class="genre-note">Sách được nhóm theo thể loại</span></div>
+        <div id="genre-stats" class="genre-stats" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>TỦ SÁCH CÁ NHÂN</span><span>Một trang mỗi ngày cũng là một hành trình.</span></footer>
+
+    <dialog id="book-dialog" class="dialog" aria-labelledby="dialog-title">
+      <form id="book-form" method="dialog" novalidate>
+        <div class="dialog-heading"><div><p class="eyebrow eyebrow-green">THÊM VÀO BỘ SƯU TẬP</p><h2 id="dialog-title">Cuốn sách mới</h2></div><button class="icon-button" id="close-dialog" type="button" aria-label="Đóng biểu mẫu"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"/></svg></button></div>
+        <input id="book-id" type="hidden" />
+        <label class="field">Tên sách <span aria-hidden="true">*</span><input id="book-title" name="title" maxlength="120" required autocomplete="off" /><small class="field-error" id="title-error"></small></label>
+        <label class="field">Tác giả <span aria-hidden="true">*</span><input id="book-author" name="author" maxlength="100" required autocomplete="off" /><small class="field-error" id="author-error"></small></label>
+        <div class="field-row"><label class="field">Thể loại<select id="book-genre" name="genre"><option value="Khác">Chọn thể loại</option><option>Văn học</option><option>Kinh doanh</option><option>Tâm lý</option><option>Kỹ năng</option><option>Lịch sử</option><option>Khoa học</option><option>Thiếu nhi</option><option>Khác</option></select></label>
+          <label class="field">Trạng thái<select id="book-status" name="status"><option value="unread">Chưa đọc</option><option value="reading">Đang đọc</option><option value="read">Đã đọc</option></select></label></div>
+        <label class="field">Ghi chú <span class="optional">KHÔNG BẮT BUỘC</span><textarea id="book-notes" name="notes" rows="3" maxlength="500" placeholder="Một câu trích dẫn, cảm nhận hoặc điều bạn muốn nhớ..."></textarea></label>
+        <p id="storage-error" class="form-error" role="alert" hidden></p>
+        <div class="dialog-actions"><button class="button button-quiet" id="cancel-dialog" type="button">Hủy</button><button class="button button-dark" id="save-book" type="submit">Lưu vào kệ sách</button></div>
+      </form>
+    </dialog>
+
+    <dialog id="delete-dialog" class="dialog dialog-small" aria-labelledby="delete-title">
+      <div class="delete-content"><p class="eyebrow eyebrow-green">XÁC NHẬN THAO TÁC</p><h2 id="delete-title">Bỏ cuốn sách này?</h2><p>Sách sẽ được xóa khỏi tủ của bạn. Thao tác này không thể hoàn tác.</p><div class="dialog-actions"><button class="button button-quiet" id="cancel-delete" type="button">Giữ lại</button><button class="button button-danger" id="confirm-delete" type="button">Xóa sách</button></div></div>
+    </dialog>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </body>
+</html>
